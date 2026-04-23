@@ -34,9 +34,14 @@ $$\mathbf{H} = \frac{\mathbf{L} + \mathbf{V}}{|\mathbf{L} + \mathbf{V}|}$$
 ### 3.1 材质参数的实时交互
 通过 Taichi UI 模块提供了实时的滑块控制。
 * 调节 $K_a$、$K_d$ 可以明显观察到环境光底色与漫反射对物体体积感的塑造。
-* 调节 $K_s$ 和 Shininess 参数，可以模拟出不同粗糙度的材质（如哑光塑料到高光金属）。
+<img width="804" height="836" alt="实验4ka" src="https://github.com/user-attachments/assets/c46d993a-6ace-4b15-8d4d-8b2bac15bf26" />
+<img width="802" height="838" alt="实验4kd" src="https://github.com/user-attachments/assets/f8d93ab2-6873-4c19-a8dc-efe76f7cf706" />
 
-### 3.2 重点分析：Phong vs Blinn-Phong 的边缘高光截断
+* 调节 $K_s$ 和 Shininess 参数，可以模拟出不同粗糙度的材质（如哑光塑料到高光金属）。
+<img width="800" height="834" alt="实验4ks" src="https://github.com/user-attachments/assets/bf59f8e1-0280-4550-89b4-53305d72de99" />
+<img width="798" height="828" alt="实验4shine" src="https://github.com/user-attachments/assets/bdbf3777-1e2b-442f-b54e-e88b5fb2cd46" />
+
+### 3.2 附加任务1：Phong vs Blinn-Phong 的边缘高光截断
 当光源位于侧后方，光线以较大的入射角（掠射角）擦过物体表面时，两种光照模型表现出了显著的视觉差异。
 
 
@@ -46,17 +51,18 @@ $$\mathbf{H} = \frac{\mathbf{L} + \mathbf{V}}{|\mathbf{L} + \mathbf{V}|}$$
 * **Blinn-Phong 模型的平滑过渡**：
   由于采用的是法线 $\mathbf{N}$ 与半程向量 $\mathbf{H}$ 的夹角，无论视线和光线的相对位置如何，该夹角始终保持在合理范围内。因此，即使在最边缘处，**高光光斑也能顺着几何体的表面呈现出平滑、自然的向外衰减**，完美消除了截断瑕疵。
 
-*(在这里插入你在实验中截取的带有锐利截断线和修改后平滑过渡的对比图)*
-> `![Phong模型截断](你的图片路径.png)`
-> `![Blinn-Phong平滑](你的图片路径.png)`
+><img width="797" height="828" alt="2f59795219750f7821868e62c3243cb4" src="https://github.com/user-attachments/assets/d87da5c6-045b-451f-9d5d-b5280a15c9a4" />
 
-### 3.3 阴影投射效果
+><img width="801" height="833" alt="b75cd4dd4e6982485a581c2f7e562f6f" src="https://github.com/user-attachments/assets/ca694553-d698-4ca0-be37-72587383e1a3" />
+ 
+
+### 3.3 附加任务2：阴影投射效果
 将光源移动到侧上方后，可以在紫圆锥表面清晰地观察到红球投下的椭圆形硬阴影。阴影边缘锐利，且阴影内部保留了基础的 $K_a$ 环境光亮度，符合物理直觉。
 
-*(在这里插入带有硬阴影效果的最终渲染截图)*
-> `![硬阴影效果](你的图片路径.png)`
+><img width="800" height="834" alt="实验4阴影" src="https://github.com/user-attachments/assets/6f622bce-71b4-407a-ae60-522a394861ec" />
+
 
 ---
 
 ## 4. 实验总结
-通过本次实验，成功使用纯代码（不依赖现有引擎）驱动构建了 3D 渲染管线的核心部分。不仅掌握了 Taichi 高性能向量计算的编写规范，更通过 Blinn-Phong 和阴影射线的拓展，深刻体会到了计算机图形学中“通过数学优化解决视觉 Bug（如高光截断）”和“通过光线追踪模拟物理真实（如阴影偏置避免 Acne）”的美妙过程。
+通过本次实验，成功使用纯代码驱动构建了 3D 渲染管线的核心部分。掌握了Taichi高性能向量计算的编写规范，通过Blinn-Phong和阴影射线的拓展，体会到了计算机图形学中“通过数学优化解决视觉 Bug”和“通过光线追踪模拟物理真实”的思路。
